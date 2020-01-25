@@ -33,5 +33,38 @@ iframe {
   width: 20vw;
   height: 100vh;
   text-align: center;
+  padding: 2rem;
+}
+
+.title {
+  font-size: 3rem;
   padding: 1rem;
+}
+
+.content {
+  font-size: 5rem;
+}
+
+button {
+  padding: 1rem 2rem;
+  border-radius: 15px;
+  background: rgb(45, 75, 207);
+  font-size: 1rem;
+  color: white;
+  margin: 1rem;
+}
+
+button:hover {
+  background: rgb(93, 119, 233);
+}
+
+textarea {
+  width: 100%;
+  font-size: 1.5rem;
+  border-radius: 20px;
+  padding: 1.4rem 1rem 0rem 1rem;
+}
+
+#leaderboard {
+  font-size: 2rem;
 }

@@ -5,30 +5,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <link rel="stylesheet" href="./style.css" />
+    <script src="./leaderboard.js"></script>
     <title>Document</title>
   </head>
   <body>
     <iframe src="./AR.html" scrolling="no"></iframe>
     <div class="game">
       <div id="timer">
-        <h1>Timer</h1>
-        <div>00:00:00</div>
-        <button>START</button>
+        <h1 class="title">Timer</h1>
+        <div class="content">00:00:00</div>
+        <button>Start</button>
         <!--need to add function to do something on submit-->
       </div>
       <div id="input">
-        <h1>Player Name</h1>
-        <textarea placeholder="Enter name"></textarea>
-        <button onclick="">Submit</button>
+        <h1 class="title">Player Name</h1>
+        <textarea id="textarea" placeholder="Enter name"></textarea>
+        <button id="submit" onclick="">Submit</button>
         <!--need to add function to do something on submit-->
       </div>
       <div id="scoreboard">
-        <h1>Scoreboard</h1>
-        <ol id="scores">
-          <li>player1 : 01:02:02</li>
-          <li>player2 : 01:02:02</li>
-          <li>player3 : 01:02:02</li>
-        </ol>
+        <h1 class="title">Scoreboard</h1>
+        <div id="leaderboard"></div>
       </div>
     </div>
   </body>
