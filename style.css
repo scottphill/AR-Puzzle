@@ -1,14 +1,14 @@
 * {
-  padding: 0;
-  margin: 0;
-  box-sizing: border-box;
-  overflow: hidden;
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+	overflow: hidden;
 }
 html,
 body {
-  height: 100%;
-  background: black;
-  color: white;
+	height: 100%;
+	background: black;
+	color: white;
 }
 
 /* .AR {
@@ -17,54 +17,54 @@ body {
 } */
 
 iframe {
-  position: absolute;
-  border: 0;
-  overflow: hidden;
-  height: 100vh;
-  width: 80vw;
-  left: 0;
+	position: absolute;
+	border: 0;
+	overflow: hidden;
+	height: 100vh;
+	width: 80vw;
+	left: 0;
 }
 
 .game {
-  position: absolute;
-  overflow: auto;
-  top: 0;
-  right: 0;
-  width: 20vw;
-  height: 100vh;
-  text-align: center;
-  padding: 2rem;
+	position: absolute;
+	overflow: auto;
+	top: 0;
+	right: 0;
+	width: 20vw;
+	height: 100vh;
+	text-align: center;
+	padding: 2rem;
 }
 
 .title {
-  font-size: 3rem;
-  padding: 1rem;
+	font-size: 3rem;
+	padding: 1rem;
 }
 
 .content {
-  font-size: 5rem;
+	font-size: 5rem;
 }
 
 button {
-  padding: 1rem 2rem;
-  border-radius: 15px;
-  background: rgb(45, 75, 207);
-  font-size: 1rem;
-  color: white;
-  margin: 1rem;
+	padding: 1rem 2rem;
+	border-radius: 15px;
+	background: rgb(45, 75, 207);
+	font-size: 1rem;
+	color: white;
+	margin: 1rem;
 }
 
 button:hover {
-  background: rgb(93, 119, 233);
+	background: rgb(93, 119, 233);
 }
 
 textarea {
-  width: 100%;
-  font-size: 1.5rem;
-  border-radius: 20px;
-  padding: 1.4rem 1rem 0rem 1rem;
+	width: 100%;
+	font-size: 1.5rem;
+	border-radius: 20px;
+	padding: 1.4rem 1rem 0rem 1rem;
 }
 
 #leaderboard {
-  font-size: 2rem;
+	font-size: 2rem;
 }
