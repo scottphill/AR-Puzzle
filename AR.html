@@ -12,34 +12,6 @@ for plain marker
 		<script src="https://aframe.io/releases/1.0.0/aframe.min.js"></script>
 		<!-- ar.js library -->
 		<script src="https://raw.githack.com/jeromeetienne/AR.js/2.1.4/aframe/build/aframe-ar.js"></script>
-		<script>
-			//begin script onload
-
-			// setInterval(() => {
-			//     console.log(
-			//       marker1
-			//         .getAttribute("position")
-			//         .distanceTo(marker2.getAttribute("position"))
-			//     );
-			//   }, 2000);
-
-			var scene, marker1, marker2;
-			window.onload = function() {
-				var scene = document.querySelector("a-scene");
-				var marker1 = document.getElementById("marker1");
-				console.log(marker1);
-				var marker2 = document.getElementById("marker2");
-				setInterval(() => {
-					console.log(
-						Math.round(
-							marker1
-								.getAttribute("position")
-								.distanceTo(marker2.getAttribute("position")) * 100
-						) / 100
-					);
-				}, 2000);
-			};
-		</script>
 	</head>
 	<!-- defining the body  -->
 	<body>
@@ -180,5 +152,27 @@ for plain marker
 direction='alternate-reverse'
 easing="ease-in-out-circ" 
 repeat="indefinite a-animation-->
+		<script>
+			var scene = document.querySelector("a-scene");
+			var marker1 = document.getElementById("marker1");
+			var marker2 = document.getElementById("marker2");
+			var marker3 = document.getElementById("marker3");
+			var marker4 = document.getElementById("marker4");
+			var marker5 = document.getElementById("marker5");
+			var marker6 = document.getElementById("marker6");
+			var marker7 = document.getElementById("marker7");
+			var marker8 = document.getElementById("marker8");
+			var distances;
+			setInterval(() => {
+				console.log(
+					Math.round(
+						marker1
+							.getAttribute("position")
+							.distanceTo(marker2.getAttribute("position")) * 100
+					) / 100
+				);
+			}, 2000);
+			console.log(marker1);
+		</script>
 	</body>
 </html>
