@@ -16,24 +16,40 @@ body {
   background: red;
 } */
 
-iframe {
+.frame {
+	height: 100%;
+	width: 70%;
+}
+
+.frame,
+.frame-end {
 	position: absolute;
 	border: 0;
 	overflow: hidden;
-	height: 100vh;
-	width: 80vw;
 	left: 0;
 }
 
+.frame-end {
+	width: 0;
+}
+
 .game {
+	width: 30%;
+	height: 100%;
+}
+
+.game,
+.game-end {
 	position: absolute;
 	overflow: auto;
 	top: 0;
 	right: 0;
-	width: 20vw;
-	height: 100vh;
 	text-align: center;
 	padding: 2rem;
+}
+
+.game-end {
+	width: 100%;
 }
 
 .title {
