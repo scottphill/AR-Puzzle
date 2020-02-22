@@ -1,4 +1,23 @@
 // defines the click behavior for the buttons
+var marker11;
+var marker12;
+var marker13;
+var marker14;
+var marker21;
+var marker22;
+var marker23;
+var marker24;
+
+var scores = [[], [], []];
+for (var i = 0; i < 5; ++i) {
+	scores[0].push("EMPTY");
+	scores[1].push("99:99.9");
+	scores[2].push(9999999999);
+}
+
+var endMessage = document.getElementById("message");
+// var textarea = document.getElementById("textarea");
+
 var startBtn = document.getElementById("start");
 startBtn.addEventListener("click", function() {
 	btnClicked("start");
@@ -17,11 +36,7 @@ var timer = document.getElementById("timerDisplay"); // gets the timer from the 
 // Define UI behaviors
 const submitUI = document.getElementById("input");
 submitUI.style.display = "none";
-
-const iframe = document.getElementById("ARframe");
-console.log(iframe);
-const innerDoc = iframe.contentDocument || iframe.contentWindow.document;
-console.log(innerDoc);
+const scoreboard = document.getElementById("scoreboard");
 
 class Stopwatch {
 	constructor() {
@@ -66,6 +81,14 @@ class Stopwatch {
 		return this.timeStr();
 	}
 
+	getMillTime() {
+		var returnTime = 0;
+		returnTime += this.millis;
+		returnTime += this.secs * 1000;
+		returnTime += this.mins * 60000;
+		return returnTime;
+	}
+
 	// functions for starting, pausing, and checking whether the stopwatch is running
 	pause() {
 		this.running = false;
@@ -88,30 +111,92 @@ class arGame {
 	constuctor() {
 		this.gameOver = true;
 		this.completed = false;
-		resetScores();
-        this.running = null;
+		this.running = null;
+	}
+
+	getDistances() {
+		var distance = new Array();
+		distance.push(
+			Math.round(
+				marker11
+					.getAttribute("position")
+					.distanceTo(marker12.getAttribute("position")) * 100
+			) / 100
+		);
+		distance.push(
+			Math.round(
+				marker12
+					.getAttribute("position")
+					.distanceTo(marker13.getAttribute("position")) * 100
+			) / 100
+		);
+		distance.push(
+			Math.round(
+				marker13
+					.getAttribute("position")
+					.distanceTo(marker14.getAttribute("position")) * 100
+			) / 100
+		);
+		distance.push(
+			Math.round(
+				marker21
+					.getAttribute("position")
+					.distanceTo(marker22.getAttribute("position")) * 100
+			) / 100
+		);
+		distance.push(
+			Math.round(
+				marker22
+					.getAttribute("position")
+					.distanceTo(marker23.getAttribute("position")) * 100
+			) / 100
+		);
+		distance.push(
+			Math.round(
+				marker23
+					.getAttribute("position")
+					.distanceTo(marker24.getAttribute("position")) * 100
+			) / 100
+		);
+		distance.push(
+			Math.round(
+				marker11
+					.getAttribute("position")
+					.distanceTo(marker21.getAttribute("position")) * 100
+			) / 100
+		);
+		distance.push(
+			Math.round(
+				marker12
+					.getAttribute("position")
+					.distanceTo(marker22.getAttribute("position")) * 100
+			) / 100
+		);
+		distance.push(
+			Math.round(
+				marker13
+					.getAttribute("position")
+					.distanceTo(marker23.getAttribute("position")) * 100
+			) / 100
+		);
+		distance.push(
+			Math.round(
+				marker14
+					.getAttribute("position")
+					.distanceTo(marker24.getAttribute("position")) * 100
+			) / 100
+		);
+		for (let i = 0; i < distance.length; i++) {
+			console.log(distance[i]);
+		}
+		return distance;
 	}
 
 	// says whether the puzzle is completed
 	isRunning() {
-		if(this.running == null)
-            return false;
-        else
-            return true;
+		if (this.running == null) return false;
+		else return true;
 	}
-
-	getScores() {
-		return this.scores;
-	}
-    
-    resetScores() {
-        this.scores = [[], [], []];
-        for(var i = 0; i < 5; ++i){
-            this.scores[0].push("EMPTY");
-            this.scores[1].push("00:00.0");
-            this.scores[2].push(0);
-        }
-    }
 
 	// sets the game state to currently being solved
 	startGame() {
@@ -122,48 +207,71 @@ class arGame {
 	// takes in a list of distances and a minimum distance. If any of the distances are greater than the minimum
 	// distance, the game is not completed.
 	checkCompleted() {
-        distances = getDistances()
-        
-		this.completed = false;
-		for (dist in newDists)
-			if (dist > minDist) {
-				this.completed = true;
-				break;
+		var newDists = this.getDistances();
+		var distBools = [];
+		for (var i = 0; i < newDists.length; ++i) {
+			console.log(newDists[i]);
+			if (newDists[i] < 3.1 && newDists[i] > 0.2) {
+				distBools.push(true);
+			} else {
+				distBools.push(false);
 			}
+		}
 
-		return this.completed;
+		for (var i = 0; i < distBools.length; i++) {
+			if (!distBools[i]) {
+				console.log("False");
+				console.log(newDists);
+				console.log(distBools);
+				return false;
+			}
+		}
+		console.log(distBools);
+		return true;
 	}
-    
-    // sets all of the game variables 
-    reset() {
-        this.gameOver = true;
-        this.completed = false;
-        this.running = null;
-    }
+
+	// sets all of the game variables
+	reset() {
+		this.gameOver = true;
+		this.completed = false;
+		this.running = null;
+	}
 
 	// inserts a new score into the list of scores
 	tryToAddScore(name, timeStr, totalMillis) {
-        var scoresLen = this.scores.length;
-        
-        var i = 0;
-        for(; i < scoresLen; ++i)
-            if(totalMillis <= this.scores[2][i])
-                break;
-        
-        this.scores[0].splice(i, 0, name)
-        this.scores[1].splice(i, 0, timeStr)
-        this.scores[2].splice(i, 0, totalMillis)
-        
-        if(this.scores[0].length == 6){
-            this.scores[0].splice(5, 1)
-            this.scores[1].splice(5, 1)
-            this.scores[2].splice(5, 1)
-        }
-            
-    }
+		var scoresLen = scores[0].length;
+
+		var i = 0;
+		for (; i < scoresLen; ++i) if (totalMillis <= scores[2][i]) break;
+
+		scores[0].splice(i, 0, name);
+		scores[1].splice(i, 0, timeStr);
+		scores[2].splice(i, 0, totalMillis);
+
+		if (scores[0].length == 6) {
+			scores[0].splice(5, 1);
+			scores[1].splice(5, 1);
+			scores[2].splice(5, 1);
+		}
+	}
 
 	// progresses the game state and calculates game information from the current state
 	continue() {}
+}
+
+function changeImages() {
+    var imgFolder = "/home/scott/Documents/ARP/marker/";
+    var imgNum = Math.floor((Math.random()*4) + 1); // selects the image folder from 1 - 4;
+    imgFolder += (String(imgNum) + "/");
+    
+    marker11.src = imgFolder + "11.jpg";
+    marker12.src = imgFolder + "12.jpg";
+    marker13.src = imgFolder + "13.jpg";
+    marker14.src = imgFolder + "14.jpg";
+    marker21.src = imgFolder + "21.jpg";
+    marker22.src = imgFolder + "22.jpg";
+    marker23.src = imgFolder + "23.jpg";
+    marker24.src = imgFolder + "24.jpg";
 }
 
 // function that progresses the game
@@ -180,9 +288,17 @@ function startGame() {
 	startBtn.style.display = "none";
 	pauseResetBtn.style.display = "inline";
 	pauseResetBtn.innerHTML = "Pause";
-
+	var iframe = document.getElementById("ARframe").contentWindow.document;
 	// starts the watch
 	watch.start();
+	marker11 = iframe.getElementById("marker1");
+	marker12 = iframe.getElementById("marker2");
+	marker13 = iframe.getElementById("marker3");
+	marker14 = iframe.getElementById("marker4");
+	marker21 = iframe.getElementById("marker5");
+	marker22 = iframe.getElementById("marker6");
+	marker23 = iframe.getElementById("marker7");
+	marker24 = iframe.getElementById("marker8");
 
 	// !!TODO!! use clearInterval(gameInterval) somewhere to end the game loop
 	gameInterval = setInterval(gameLoop, 100);
@@ -198,33 +314,63 @@ function pauseGame() {
 
 // completely resets the game
 function resetGame() {
-    if(game.running != null)
-        clearInterval(game.running);
-    game.reset;
-    
+	if (game.running != null) clearInterval(game.running);
+	game.reset;
+
 	timer.innerHTML = watch.reset();
 	startBtn.style.display = "inline";
 	pauseResetBtn.style.display = "none";
-    
-    const gameSection = document.getElementById("game");
+	const gameSection = document.getElementById("game");
 	const ARFrame = document.getElementById("ARframe");
-    gameSection.className = "game";
-    ARFrame.className = "frame";
-    submitUI.style.display = "none";
+	pauseResetBtn.innerHTML = "Reset";
+	gameSection.className = "game";
+	ARFrame.className = "frame";
+	submitUI.style.display = "none";
+	scoreboard.style.display = "inline";
+	endMessage.style.display = "none";
+    changeImages();
 }
 
+//Game is completed
 function endGame() {
 	clearInterval(gameInterval); // stops the game loop
 	watch.pause();
 	displayEndScreen();
 }
 
-function displayEndScreen() {
-	const gameSection = document.getElementById("game");
-	const ARFrame = document.getElementById("ARframe");
-	gameSection.className = "game-end";
-	ARFrame.className = "frame-end";
-	submitUI.style.display = "inline";
+function processEnd() {
+	var newTimeStr = watch.timeStr();
+	var newMilli = watch.getMillTime();
+	console.log(newTimeStr);
+	console.log(newMilli);
+	var name = textarea.value;
+	textarea.value = "";
+	if (name == "") {
+		processEnd();
+	}
+	game.tryToAddScore(name, newTimeStr, newMilli);
+	// writeScoresToFile(game.getScores());
+	updateScoreboard();
+	// TODO: replace this with
+
+	resetGame();
+}
+
+function updateScoreboard() {
+	var leaderboard = document.getElementById("leaderboard");
+	if (leaderboard.rows.length == 5) {
+		for (let i = 0; i < 5; i++) {
+			leaderboard.deleteRow(0);
+		}
+	}
+
+	for (let i = scores[0].length - 1; i >= 0; i--) {
+		let row = leaderboard.insertRow(0);
+		let name = row.insertCell(0);
+		let time = row.insertCell(1);
+		name.innerHTML = scores[0][i];
+		time.innerHTML = scores[1][i];
+	}
 }
 
 var btnClicked = function(btnName) {
@@ -237,6 +383,7 @@ var btnClicked = function(btnName) {
 			else resetGame();
 			break;
 		case "submitBtn":
+			processEnd();
 			break;
 		default:
 			console.log("DEFAULT STATEMENT REACHED");
@@ -247,3 +394,22 @@ var btnClicked = function(btnName) {
 // defines the global game variables
 var watch = new Stopwatch();
 var game = new arGame();
+
+function displayEndScreen() {
+	const gameSection = document.getElementById("game");
+	const ARFrame = document.getElementById("ARframe");
+	pauseResetBtn.innerHTML = "Reset";
+	gameSection.className = "game-end";
+	ARFrame.className = "frame-end";
+	endMessage.style.display = "block";
+	if (watch.getMillTime() < scores[2][4]) {
+		endMessage.innerText = "Congratulations! You are one of the top 5";
+		submitUI.style.display = "inline";
+	} else {
+		submitUI.style.display = "none";
+		endMessage.innerText = "Sorry you did not make the top 5. Try again!";
+	}
+	scoreboard.style.display = "none";
+}
+
+updateScoreboard();
