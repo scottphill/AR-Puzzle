@@ -260,7 +260,7 @@ class arGame {
 }
 
 function changeImages() {
-    var imgFolder = "/home/scott/Documents/ARP/marker/";
+    var imgFolder = "https://raw.githubusercontent.com/scottphill/AR-Puzzle/master/marker/";
     var imgNum = Math.floor((Math.random()*4) + 1); // selects the image folder from 1 - 4;
     imgFolder += (String(imgNum) + "/");
     
