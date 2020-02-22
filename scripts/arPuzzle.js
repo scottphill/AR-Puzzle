@@ -328,7 +328,7 @@ function resetGame() {
 	submitUI.style.display = "none";
 	scoreboard.style.display = "inline";
 	endMessage.style.display = "none";
-    changeImages();
+    	changeImages();
 }
 
 //Game is completed
